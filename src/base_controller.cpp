@@ -10,10 +10,7 @@ BaseController::BaseController() {
 
 
     // Inicializacion de las publicaciones
-    tracksNode =  n.advertise<motors_panda::Motors>("commands/motor/duty_cycle", 10);
-
-    // Inicializacion de las variables de estado
-    this->tracksNode.data = 0.0;
+    tracksNode =  n.advertise<motors_panda::Motors>("tracks_duty_cycle", 10);
 }
 
 void BaseController::twistMsgCallback(const geometry_msgs::Twist::ConstPtr& msg){
@@ -31,8 +28,8 @@ void BaseController::motorDriver(const double x, const double z){
     // aca mandamos los mensajes a el driver de las ruedas
     double fast_track;
     double slow_track;
-    fast_track = std::abs(x)
-    slow_track = std::abs(x * (1 - std::abs(z)))
+    fast_track = std::abs(x);
+    slow_track = std::abs(x * (1 - std::abs(z)));
     motors_panda::Motors motorMsg;
     if(z == 0.0) {
         motorMsg.data_l = fast_track;

@@ -13,10 +13,6 @@ class BaseController {
     ros::Subscriber twist;
     // Publicadores
     ros::Publisher tracksNode;
-    // Mensajes
-    std_msgs::Float64 msgTracks[2];
-    // Variables de estado
-
 
 public:
     BaseController();
