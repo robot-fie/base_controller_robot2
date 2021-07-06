@@ -23,3 +23,11 @@ public:
     void twistMsgCallback(const geometry_msgs::Twist::ConstPtr&);
     void motorDriver(const double, const double);
 };
+
+template <typename T> int sgn(T val) {
+    return (T(0) < val) - (val < T(0));
+}
+
+double modulus (const double x, const double y) {
+    return std::sqrt(x * x, y * y);
+}

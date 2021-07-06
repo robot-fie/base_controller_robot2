@@ -28,8 +28,11 @@ void BaseController::twistMsgCallback(const geometry_msgs::Twist::ConstPtr& msg)
 
 
 void BaseController::motorDriver(const double x, const double z){
+    motorMsg.data_l = modulus(x, z) * sgn(z);
+    motorMsg.data_r = modulus(x, z) * sgn(z) * -1.0;
+    tracksNode.publish(motorMsg);
     // aca mandamos los mensajes a el driver de las ruedas
-    double fast_track;
+    /* double fast_track;
     double slow_track;
     fast_track = std::abs(x)
     slow_track = std::abs(x * (1 - std::abs(z)))
@@ -46,7 +49,7 @@ void BaseController::motorDriver(const double x, const double z){
         motorMsg.data_l = fast_track;
         motorMsg.data_r = slow_track;
         tracksNode.publish(motorMsg);
-    }
+    } */
 }
 
 int main(int argc, char **argv) {

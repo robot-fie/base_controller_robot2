@@ -10,7 +10,7 @@ project(base_controller_robot2)
 find_package(catkin REQUIRED COMPONENTS
   geometry_msgs
   roscpp
-  motors_panda
+#  motors_panda
 )
 
 ## System dependencies are found with CMake's conventions
