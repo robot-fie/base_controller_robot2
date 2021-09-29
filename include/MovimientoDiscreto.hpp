@@ -6,8 +6,8 @@
 #include <ostream>
 
 struct Movimiento {
-    float izquierda;
-    float derecha;
+    double izquierda;
+    double derecha;
 };
 
 class MovimientoDiscreto {
@@ -18,11 +18,11 @@ private:
     static Movimiento array[12];
 
     //Funciones de utileria
-    float calcularAngulo(float x, float z);
+    double calcularAngulo(double x, double z);
 
-    float calcularModulo(float x, float z);
+    double calcularModulo(double x, double z);
 
-    Movimiento devolverMovimientoDiscretizado(float angulo, float modulo);
+    Movimiento devolverMovimientoDiscretizado(double angulo, double modulo);
 
 public:
 
@@ -32,7 +32,7 @@ public:
 
     void setRueda(Movimiento rueda);
 
-    void realizarMovimientoDiscreto(float x, float z);
+    void realizarMovimientoDiscreto(double x, double z);
 
 
 };

@@ -3,7 +3,7 @@
 
 # define PI 3.14159265358979323846  /* pi */
 
-#include "MovimientoDiscreto.hpp"
+#include "../include/MovimientoDiscreto.hpp"
 
 using namespace std;
 
@@ -34,7 +34,7 @@ const Movimiento &MovimientoDiscreto::getRueda() const {
 
 /**
  * Setter del atributo de clase rueda,
- * @param rueda struc Movimiento, con valores float para rueda izquierda y derecha
+ * @param rueda struc Movimiento, con valores double para rueda izquierda y derecha
  */
 void MovimientoDiscreto::setRueda(Movimiento rueda) {
     if (rueda.izquierda >= -1 && rueda.izquierda <= 1) {
@@ -55,20 +55,20 @@ void MovimientoDiscreto::setRueda(Movimiento rueda) {
 /**
  * Funcion que calcula el ángulo en radianes, lo corrige por cuadrante y lo transforma a grados. Necesita de la
  * constante PI
- * @param x float que es homologo al eje y
- * @param z float que es homologo al eje x
- * @return float con el angulo en grados.
+ * @param x double que es homologo al eje y
+ * @param z double que es homologo al eje x
+ * @return double con el angulo en grados.
  */
-float MovimientoDiscreto::calcularAngulo(float x, float z) {
+double MovimientoDiscreto::calcularAngulo(double x, double z) {
 
     if (x >= 0 && z <= 0) { //Primer Cuadrante
-        return (float) (atan2(abs(x), abs(z)) / (PI / 180));
+        return  (atan2(abs(x), abs(z)) / (PI / 180));
     } else if (x >= 0 && z >= 0) { //Segundo Cuadrante
-        return (float) ((PI - atan2(abs(x), abs(z))) / (PI / 180));
+        return ((PI - atan2(abs(x), abs(z))) / (PI / 180));
     } else if ((x <= 0 && z >= 0)) { //Tercer Cuadrante
-        return (float) (((atan2(abs(x), abs(z)) + PI)) / (PI / 180));
+        return (((atan2(abs(x), abs(z)) + PI)) / (PI / 180));
     } else if (x <= 0 && z <= 0) { //Cuarto Cuadrane
-        return (float) (((2 * PI) - atan2(abs(x), abs(z))) / (PI / 180));
+        return (((2 * PI) - atan2(abs(x), abs(z))) / (PI / 180));
     } else {
         return 0;
     }
@@ -76,14 +76,14 @@ float MovimientoDiscreto::calcularAngulo(float x, float z) {
 
 /**
  * Funcion que recibe como parametros los dos ejes del Joystick y devuelve el modulo con precicion de 0.1.
- * @param x float que es homologo al eje y
- * @param z float que es homologo al eje x
- * @return float con el modulo con dominio entre 0 y 1.
+ * @param x double que es homologo al eje y
+ * @param z double que es homologo al eje x
+ * @return double con el modulo con dominio entre 0 y 1.
  */
-float MovimientoDiscreto::calcularModulo(float x, float z) {
-    float modulo;
+double MovimientoDiscreto::calcularModulo(double x, double z) {
+    double modulo;
     //Calculo el modulo con pitagoras
-    modulo = (float) sqrt(pow(x, 2) + pow(z, 2));
+    modulo = (double) sqrt(pow(x, 2) + pow(z, 2));
     //Redondeo el valor del modulo
     modulo *= 10;
     modulo = round(modulo);
@@ -94,10 +94,10 @@ float MovimientoDiscreto::calcularModulo(float x, float z) {
  * Funcion que calcula dado un angulo y el modulo, el movimiento para ruedas diferenciales.
  * @param angulo
  * @param modulo
- * @return struct movimiento con los valores float rueda izquierda y derecha
+ * @return struct movimiento con los valores double rueda izquierda y derecha
  */
 
-Movimiento MovimientoDiscreto::devolverMovimientoDiscretizado(float angulo, float modulo) {
+Movimiento MovimientoDiscreto::devolverMovimientoDiscretizado(double angulo, double modulo) {
 
     Movimiento rueda = {0, 0};
 
@@ -168,11 +168,11 @@ Movimiento MovimientoDiscreto::devolverMovimientoDiscretizado(float angulo, floa
  * @param x
  * @param z
  */
-void MovimientoDiscreto::realizarMovimientoDiscreto(float x, float z) {
+void MovimientoDiscreto::realizarMovimientoDiscreto(double x, double z) {
     //Primero determino el angulo de movimiento.
-    float angulo = MovimientoDiscreto::calcularAngulo(x, z);
+    double angulo = MovimientoDiscreto::calcularAngulo(x, z);
     //Segundo determino la magnitud del movimiento.
-    float modulo = MovimientoDiscreto::calcularModulo(x, z);
+    double modulo = MovimientoDiscreto::calcularModulo(x, z);
     //Calculo el movimiento discreto y seteo el atributo de clase "rueda"
     MovimientoDiscreto::setRueda(devolverMovimientoDiscretizado(angulo, modulo));
 }

@@ -33,7 +33,9 @@ void BaseController::motorDriver(const double x, const double z){
     double slow_track;
     fast_track = std::abs(x);
     slow_track = std::abs(x * (1 - std::abs(z)));
-    motors_panda::Motors motorMsg;
+    */
+   motors_panda::Motors motorMsg;
+   /*
     if(z == 0.0) {
         motorMsg.data_l = fast_track;
         motorMsg.data_r = fast_track;
